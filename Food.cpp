@@ -1,7 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Game.h"
 #include "Food.h"
-#include "Render.h"
 
 static int generateRandomNumber(int max)
 {
@@ -24,15 +22,23 @@ Food::Food()
 	, m_color(sf::Color::Yellow)
 {
 	m_shape.setFillColor(m_color);
-	resetFood();
 }
 
-void Food::resetFood()
+void Food::draw(sf::RenderWindow& window)
 {
-	m_shape.setPosition(getRandomCoordinates(RESOLUTION, m_size));
+	window.draw(m_shape);
 }
 
-const sf::RectangleShape& Food::getShape()
+void Food::update(sf::Clock& deltaTime) {}
+
+void Food::handleEvents(sf::Event& event) {}
+
+void Food::reset(const sf::Vector2f& boundaries)
+{
+	m_shape.setPosition(getRandomCoordinates(boundaries, m_size));
+}
+
+sf::Shape& Food::getShape()
 {
 	return m_shape;
 }
